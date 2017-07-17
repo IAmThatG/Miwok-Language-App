@@ -22,48 +22,82 @@ public class Word
     private String mDefaultTranslation;
 
     /** The image resource id for a word*/
-    private int mImageResourceId;
+    private int mImageResourceId = NO_IMAGE_PROVIDED;
+
+    /** The audio resource id for a word */
+    private int mAudioResourceId;
+
+    /** The default id if no image is provided */
+    private static final int NO_IMAGE_PROVIDED = -1;
 
     /**
      * Creates a new {@link Word} object
-     * @param MiwokTranslation The miwok translation of a word
-     * @param DefaultTranslation The default translation of a word
+     * @param MiwokTranslation The word in the Miwok language
+     * @param DefaultTranslation The word in a language the user is already familiar with
+     * @param AudioResourceId The resource id of the audio file associated with this word
      */
-    public Word(@NonNull String MiwokTranslation, @NonNull String DefaultTranslation)
+    public Word(@NonNull String MiwokTranslation, @NonNull String DefaultTranslation, int AudioResourceId)
     {
+        mAudioResourceId = AudioResourceId;
         mMiwokTranslation = MiwokTranslation;
         mDefaultTranslation = DefaultTranslation;
     }
 
-    public Word(String MiwokTranslation, String DefaultTranslation, int ImageResourceId)
+    /**
+     * Creates a new {@link Word} object
+     * @param MiwokTranslation The word in the Miwok language
+     * @param DefaultTranslation The word in a language the user is already familiar with
+     * @param AudioResourceId The resource id of the audio file associated with this word
+     * @param ImageResourceId The drawable resource id for the image that visually describes this word
+     */
+    public Word(@NonNull String MiwokTranslation, @NonNull String DefaultTranslation, int AudioResourceId, int ImageResourceId)
     {
-        mMiwokTranslation = MiwokTranslation;
-        mDefaultTranslation = DefaultTranslation;
+        this(MiwokTranslation, DefaultTranslation, AudioResourceId);
         mImageResourceId = ImageResourceId;
     }
 
     /**
      * Gets the default translation of the word
-     * @return {@link String} mDefaultTranslation
+     * @return a {@link String}
      */
-    public String getDefaultTranslation()
+    String getDefaultTranslation()
     {
         return mDefaultTranslation;
     }
 
     /**
-     * Gets the miwok translation of the word
-     * @return {@link String} mMiwokTranslation
+     * returns the miwok translation of the word
+     * @return a {@link String}
      */
-    public  String getMiwokTranslation()
+    String getMiwokTranslation()
     {
         return mMiwokTranslation;
     }
 
-
-
-    public int getImageResourceId()
+    /**
+     * Returns the image resource id for a word
+     * @return an integer
+     */
+    int getImageResourceId()
     {
         return mImageResourceId;
+    }
+
+    /**
+     * Returns the audio resource id for a word
+     * @return an integer
+     */
+    public int getAudioResourceId()
+    {
+        return mAudioResourceId;
+    }
+
+    /**
+     * Returns whether or not a word has an image
+     * @return <code>true</code> if word has image or <code>false</code> if otherwise
+     */
+    public boolean hasImage()
+    {
+        return mImageResourceId != NO_IMAGE_PROVIDED;
     }
 }
